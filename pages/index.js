@@ -1,3 +1,12 @@
-export default function Home() {
-	return <h1 className='text-3xl font-bold underline'>Hello world!</h1>;
+import { useUser } from "../context/users";
+import { useEffect } from "react";
+
+function Home() {
+	const { user } = useUser();
+	// return user ? (
+	// 	<LandingPage />
+	// ) : (
+	<h1 className='text-3xl font-bold underline'>Hello me!</h1>;
+	// );
 }
+export default Home;

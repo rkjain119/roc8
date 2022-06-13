@@ -7,6 +7,6 @@ module.exports = nextConfig;
 
 module.exports = {
 	images: {
-		domains: ["cdn.filestackcontent.com", "images.unsplash.com"],
+		domains: ["avatars.githubusercontent.com"],
 	},
 };
