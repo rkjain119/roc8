@@ -7,19 +7,34 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-const navigation = [
-	{ name: "Dashboard", href: "/" },
-	{ name: "Profile", href: "/about" },
-	{ name: "Projects", href: "/projects" },
-	{ name: "Applications", href: "/applications" },
-	{ name: "FAQ", href: "/faq" },
-];
+import UnauthenticatedNav from "./unauthenticatedNav";
+import AuthenticatedNav from "./authenticatedNav";
+import classNames from "../../lib/classNames";
 
-function classNames(...classes) {
-	return classes.filter(Boolean).join(" ");
+import { useUser, isLoading } from "../../context/users";
+function NavItems() {
+	const { user } = useUser();
+	let navigation;
+	user
+		? (navigation = [
+				{ name: "Dashboard", href: "/" },
+				{ name: "Profile", href: "/about" },
+				{ name: "Projects", href: "/projects" },
+				{ name: "Applications", href: "/applications" },
+				{ name: "FAQ", href: "/faq" },
+		  ])
+		: (navigation = [
+				{ name: "Get Hired", href: "/login" },
+				{ name: "Mentor", href: "/mentor" },
+				{ name: "Hire", href: "/hire" },
+				{ name: "Job board", href: "/jobs" },
+		  ]);
+	return navigation;
 }
 
 export default function Nav() {
+	const { user, isLoading } = useUser();
+
 	const router = useRouter();
 	return (
 		<Disclosure
@@ -53,7 +68,7 @@ export default function Nav() {
 								</div>
 								<div className='hidden sm:block sm:mr-10 '>
 									<div className='flex space-x-4'>
-										{navigation.map((item) => (
+										{NavItems().map((item) => (
 											<Link key={item.name} href={item.href}>
 												<a
 													className={classNames(
@@ -82,73 +97,14 @@ export default function Nav() {
 								</button> */}
 
 								{/* Profile dropdown */}
-								<Menu as='div' className='ml-3 relative'>
-									<div>
-										<Menu.Button className='bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'>
-											<Image
-												width={32}
-												height={32}
-												className='h-8 w-8 rounded-full'
-												src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-												alt=''
-											/>
-										</Menu.Button>
-									</div>
-									<Transition
-										as={Fragment}
-										enter='transition ease-out duration-100'
-										enterFrom='transform opacity-0 scale-95'
-										enterTo='transform opacity-100 scale-100'
-										leave='transition ease-in duration-75'
-										leaveFrom='transform opacity-100 scale-100'
-										leaveTo='transform opacity-0 scale-95'>
-										<Menu.Items className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
-											{/* <Menu.Item>
-												{({ active }) => (
-													<a
-														href='#'
-														className={classNames(
-															active ? "bg-gray-100" : "",
-															"block px-4 py-2 text-sm text-gray-700"
-														)}>
-														Your Profile
-													</a>
-												)}
-											</Menu.Item>
-											<Menu.Item>
-												{({ active }) => (
-													<a
-														href='#'
-														className={classNames(
-															active ? "bg-gray-100" : "",
-															"block px-4 py-2 text-sm text-gray-700"
-														)}>
-														Settings
-													</a>
-												)}
-											</Menu.Item> */}
-											<Menu.Item>
-												{({ active }) => (
-													<a
-														href='#'
-														className={classNames(
-															active ? "bg-gray-100" : "",
-															"block px-4 py-2 text-sm text-gray-700"
-														)}>
-														Sign out
-													</a>
-												)}
-											</Menu.Item>
-										</Menu.Items>
-									</Transition>
-								</Menu>
+								{user ? <AuthenticatedNav /> : <UnauthenticatedNav />}
 							</div>
 						</div>
 					</div>
 					{/* mobile Nav */}
 					<Disclosure.Panel className='sm:hidden'>
 						<div className='px-2 pt-2 pb-3 space-y-1'>
-							{navigation.map((item) => (
+							{NavItems().map((item) => (
 								<Disclosure.Button
 									key={item.name}
 									as='a'
