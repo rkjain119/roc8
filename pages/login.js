@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useUser } from "../context/users";
 import Image from "next/image";
-import { Transition } from "@headlessui/react";
 
 const Login = () => {
 	const { login } = useUser();
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(login, []);
 
 	return (

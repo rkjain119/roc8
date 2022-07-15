@@ -1,12 +1,14 @@
-import { useUser } from "../context/users";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Landing from "../components/landing";
+import Dashboard from "../components/dashboard";
+import { Fragment } from "react";
+import { Popover, Transition } from "@headlessui/react";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { ChevronRightIcon } from "@heroicons/react/solid";
+
+import { isLoading, UserState } from "../context/users";
 
 function Home() {
-	const { user } = useUser();
-	// return user ? (
-	// 	<LandingPage />
-	// ) : (
-	<h1 className='text-3xl font-bold underline'>Hello me!</h1>;
-	// );
+	return UserState() ? <Dashboard /> : <Landing />;
 }
 export default Home;
