@@ -7,6 +7,6 @@ module.exports = nextConfig;
 
 module.exports = {
 	images: {
-		domains: ["avatars.githubusercontent.com"],
+		domains: ["avatars.githubusercontent.com", "softr-prod.imgix.net"],
 	},
 };
