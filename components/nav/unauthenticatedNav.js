@@ -1,20 +1,14 @@
-import React from "react";
-import Link from "next/link";
-import { useUser } from "../../context/users";
-
+import Link from 'next/link'
 function UnauthenticatedNav() {
-	// const { login } = useUser();
-	return (
-		<div className='flex space-x-4'>
-			<Link href='/login'>
-				<a
-					// onClick={() => login}
-					className='text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium'>
-					Login
-				</a>
-			</Link>
-		</div>
-	);
+  return (
+    <div className="flex space-x-4">
+      <Link href="/login">
+        <a className="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">
+          Login
+        </a>
+      </Link>
+    </div>
+  )
 }
 
-export default UnauthenticatedNav;
+export default UnauthenticatedNav

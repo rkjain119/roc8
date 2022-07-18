@@ -3,9 +3,9 @@ import { supabase } from "../utils/initSupabase";
 import { useRouter } from "next/router";
 // import axios from "axios";
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
-const Provider = ({ children }) => {
+export const UserProvider = ({ children }) => {
 	const [user, setUser] = useState(supabase.auth.user());
 	const [isLoading, setIsLoading] = useState(true);
 	const router = useRouter();
@@ -97,12 +97,14 @@ export const useUser = () => {
 	}
 	return context;
 };
-// export const useUser = () => {
-// 	const context = useContext(UserContext);
-// 	if (context === undefined) {
-// 		throw new Error(`useUser must be used within a UserContextProvider.`);
-// 	}
-// 	return context;
-// };
 
-export default Provider;
+export default useUser;
+
+export function UserState() {
+	const { user } = useUser();
+	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+	useEffect(() => {
+		setIsUserLoggedIn(!!user);
+	}, [user]);
+	return isUserLoggedIn;
+}
