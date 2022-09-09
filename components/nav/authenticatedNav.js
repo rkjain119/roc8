@@ -10,9 +10,8 @@ function AuthenticatedNav() {
   const { user, logout, isLoading } = useUser()
   const avatarUrl =
     user?.user_metadata?.avatar_url ||
-    'https://avatars.githubusercontent.com/u/13982751?v=4'
+    'https://avatars.githubusercontent.com/u/13982751?'
 
-  console.log(user, isLoading)
   return (
     <Menu as="div" className="relative ml-3">
       <div>
