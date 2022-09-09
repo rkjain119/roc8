@@ -25,7 +25,7 @@ export default function BlogList() {
   return blogs && blogs !== [] ? (
     <ul
       role="list"
-      className="flex  divide-y divide-gray-200"
+      className="flex divide-y divide-gray-200"
       // className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
     >
       {blogs?.map((blog) => (

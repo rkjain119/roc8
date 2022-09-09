@@ -12,18 +12,25 @@ export default function Mentor() {
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <img className="mx-auto h-12 w-auto" src="/roc8.svg" alt="logo" />
-
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Make a Difference 😇
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            <div className="font-medium text-rose-600 hover:text-rose-500">
-              Become a mentor and help people who are helping themselves.
-            </div>
-          </p>
+        <div className="mx-auto w-2/5">
+          <Image
+            width={150}
+            height={60}
+            layout="responsive"
+            className="self-center"
+            src="/roc8.svg"
+            alt="logo"
+          />
         </div>
+
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Make a Difference 😇
+        </h2>
+        <p className="mt-2 text-center text-sm text-gray-600">
+          <div className="font-medium text-rose-600 hover:text-rose-500">
+            Become a mentor and help people who are helping themselves.
+          </div>
+        </p>
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">

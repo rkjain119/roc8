@@ -84,7 +84,7 @@ export default function Dashboard() {
 
   {
     return (
-      <main className="mt-10 pb-8">
+      <main className="bg-white pb-8 sm:mt-10">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <h1 className="sr-only">Page title</h1>
           {/* Main 3 column grid */}
@@ -95,89 +95,97 @@ export default function Dashboard() {
                 <h2 className="sr-only" id="section-2-title">
                   Section title
                 </h2>
-                <div className="overflow-hidden rounded-lg bg-white shadow">
-                  <div className="p-6">
-                    <Image
-                      width={200}
-                      height={200}
-                      layout="intrinsic"
-                      className="m-8 rounded-full"
-                      src={
-                        userData?.avatar_url ||
-                        'https://avatars.githubusercontent.com/u/110811112?v=4'
-                      }
-                      alt="User Avatar"
-                    />
-                    <div className="-mb-6 flex h-6 w-full  cursor-pointer items-end justify-end">
-                      <button type="button" className="outline-none">
+                <div className="mx-auto truncate rounded-lg p-6 shadow sm:overflow-hidden">
+                  <div className="flex flex-wrap sm:block">
+                    <div className="m-1 w-32 sm:w-full">
+                      <Image
+                        width={200}
+                        height={200}
+                        layout="responsive"
+                        objectFit="contain"
+                        className="rounded-full"
+                        src={
+                          userData?.avatar_url ||
+                          'https://avatars.githubusercontent.com/u/110811112?v=4'
+                        }
+                        alt="User Avatar"
+                      />
+                    </div>
+                    <div className="ml-6 self-center sm:ml-0 ">
+                      <div className="ml-6 hidden w-full cursor-pointer justify-end sm:-mb-6 sm:ml-0 sm:flex">
                         <Link href="/profile">
                           <PencilIcon
-                            className="h-5 w-5 items-end justify-end text-gray-500 "
+                            className="h-5 w-5 text-gray-500 hover:text-gray-600"
                             aria-hidden="true"
                           />
                         </Link>
-                      </button>
-                    </div>
-                    <h1 className="lg:text-2rem text-xl font-semibold ">
-                      {userData?.name || 'User Name'}
-                    </h1>
-                    <Link href={userGithubUrl} passHref>
-                      <h3 className="cursor-pointer text-base font-extralight text-gray-900">
-                        {userData?.login || 'User Name'}
-                      </h3>
-                    </Link>
-
-                    <div className="mt-1  text-base leading-6 text-gray-700">
-                      {userData?.bio || 'User Bio'}
-                    </div>
-
-                    <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
-                      <Link href={`https://${userData?.blog}`}>
-                        <div className="flex">
-                          <GoGlobe className="mr-2 h-6" />
-                          {userData?.blog || 'Portfolio / blog'}
+                      </div>
+                      <h1 className="lg:text-2rem text-xl font-semibold ">
+                        {userData?.name || 'User Name'}
+                      </h1>
+                      <Link href={userGithubUrl}>
+                        <div className="mt-1 cursor-pointer text-base leading-6 text-gray-700">
+                          <h3 className="text-base font-extralight text-gray-900">
+                            @{userData?.login || 'User Name'}
+                          </h3>
+                          {userData?.bio || 'User Bio'}
                         </div>
                       </Link>
                     </div>
-
-                    <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
-                      <Link
-                        href={`https://www.linkedin.com/in/${userLinkedinUrl}`}
-                      >
-                        <div className="flex">
-                          <FaLinkedin className="mr-2 h-6" />
-                          {userLinkedinUrl || 'Linkedin userName'}
-                        </div>
+                    <div className="mt-2 flex w-full flex-col ">
+                      <Link href="/profile" type="button">
+                        <a className="inline-flex items-center justify-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-center text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 sm:hidden">
+                          Edit Profile
+                        </a>
                       </Link>
-                    </div>
+                      <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
+                        <Link href={`https://${userData?.blog}`}>
+                          <div className="flex">
+                            <GoGlobe className="mr-2 h-6" />
+                            {userData?.blog || 'Portfolio / blog'}
+                          </div>
+                        </Link>
+                      </div>
 
-                    <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
-                      <Link href={`https://github.com/${userData?.login}`}>
-                        <div className="flex">
-                          <GoMarkGithub className="mr-2 h-6" />
-                          {userData?.login || 'Github User Name'}
-                        </div>
-                      </Link>
-                    </div>
+                      <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
+                        <Link
+                          href={`https://www.linkedin.com/in/${userLinkedinUrl}`}
+                        >
+                          <div className="flex">
+                            <FaLinkedin className="mr-2 h-6" />
+                            {userLinkedinUrl || 'Linkedin userName'}
+                          </div>
+                        </Link>
+                      </div>
 
-                    <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
-                      <Link
-                        href={`https://twitter.com/${userData?.twitter_username}`}
-                      >
-                        <div className="flex">
-                          <FaTwitter className="mr-2 h-6" />
-                          {userData?.twitter_username || 'twitter_username'}
-                        </div>
-                      </Link>
-                    </div>
+                      <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
+                        <Link href={`https://github.com/${userData?.login}`}>
+                          <div className="flex">
+                            <GoMarkGithub className="mr-2 h-6" />
+                            {userData?.login || 'Github User Name'}
+                          </div>
+                        </Link>
+                      </div>
 
-                    <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
-                      <Link href={`mailto:${userEmail}`}>
-                        <div className="flex">
-                          <FaEnvelope className="mr-2 h-6" />
-                          <span>{userEmail}</span>
-                        </div>
-                      </Link>
+                      <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
+                        <Link
+                          href={`https://twitter.com/${userData?.twitter_username}`}
+                        >
+                          <div className="flex">
+                            <FaTwitter className="mr-2 h-6" />
+                            {userData?.twitter_username || 'twitter_username'}
+                          </div>
+                        </Link>
+                      </div>
+
+                      <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
+                        <Link href={`mailto:${userEmail}`}>
+                          <div className="flex">
+                            <FaEnvelope className="mr-2 h-6" />
+                            <span>{userEmail}</span>
+                          </div>
+                        </Link>
+                      </div>
                     </div>
                     {/*  */}
                   </div>
@@ -194,14 +202,14 @@ export default function Dashboard() {
                 <div className="overflow-hidden rounded-lg bg-white shadow">
                   {/* github */}
                   <div className="relative p-6">
-                    <div className="flex items-center gap-3 pl-3 pb-2">
+                    <div className="flex items-center gap-3 pb-2 sm:pl-3">
                       <Link href={userGithubUrl}>
                         <div className="">
-                          <GoLogoGithub className="h-10 w-20  cursor-pointer" />
+                          <GoLogoGithub className="h-4 w-20 cursor-pointer sm:h-6 sm:w-20" />
                         </div>
                       </Link>
                       <Link href={userGithubUrl}>
-                        <div className="">
+                        <div className="-ml-4 sm:-ml-2">
                           <FcApproval className="h-6 cursor-pointer" />
                         </div>
                       </Link>
@@ -218,14 +226,14 @@ export default function Dashboard() {
                   {/* project List */}
                   <div className="p-6">
                     <div className="flex items-center justify-between">
-                      <h3 className="pl-3 text-lg font-medium leading-6 text-gray-900">
+                      <h3 className="text-lg font-medium leading-6 text-gray-900 sm:pl-3">
                         Projects
                       </h3>
                       <div className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border bg-white transition-all duration-75 ease-in focus-within:border-transparent focus-within:ring-2">
                         <button type="button" className="outline-none">
                           <Link href="/profile/projects">
                             <PencilIcon
-                              className="h-5 w-5 text-gray-500"
+                              className="h-5 w-5 text-gray-500 hover:text-gray-600"
                               aria-hidden="true"
                             />
                           </Link>
@@ -238,14 +246,14 @@ export default function Dashboard() {
                   {/* Blogs */}
                   <div className="p-6">
                     <div className="flex items-center justify-between">
-                      <h3 className="pl-3 text-lg font-medium leading-6 text-gray-900">
+                      <h3 className="text-lg font-medium leading-6 text-gray-900 sm:pl-3">
                         Blogs
                       </h3>
                       <div className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border bg-white transition-all duration-75 ease-in focus-within:border-transparent focus-within:ring-2">
                         <button type="button" className="outline-none">
                           <Link href="/profile/blogs">
                             <PencilIcon
-                              className="h-5 w-5 text-gray-500"
+                              className="h-5 w-5 text-gray-500 hover:text-gray-600"
                               aria-hidden="true"
                             />
                           </Link>
