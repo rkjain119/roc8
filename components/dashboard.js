@@ -100,7 +100,7 @@ export default function Dashboard() {
                     <Image
                       width={200}
                       height={200}
-                      layout="responsive"
+                      layout="intrinsic"
                       className="m-8 rounded-full"
                       src={
                         userData?.avatar_url ||
@@ -206,13 +206,14 @@ export default function Dashboard() {
                         </div>
                       </Link>
                     </div>
-                    <Image
+                    <img src={userGraph} alt="github graph" />
+                    {/* <Image
                       src={userGraph}
                       alt="Avatar"
                       width={712}
                       height={140}
                       layout="responsive"
-                    />
+                    /> */}
                   </div>
                   {/* project List */}
                   <div className="p-6">
