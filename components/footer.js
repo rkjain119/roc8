@@ -104,6 +104,8 @@ export default function Footer() {
             <div className="flex space-x-6">
               {navigation.social.map((item) => (
                 <a
+                  target="_blank"
+                  rel="external noreferrer nofollow"
                   key={item.name}
                   href={item.href}
                   className="text-gray-300 hover:text-gray-100"

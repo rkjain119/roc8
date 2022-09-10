@@ -38,14 +38,16 @@ export default function Nav() {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-between">
                 <div className="flex flex-shrink-0 items-center">
                   <Link href="/">
-                    <Image
-                      width={90}
-                      height={40}
-                      layout="intrinsic"
-                      className="block h-8 w-auto"
-                      src="/roc8.svg"
-                      alt="logo"
-                    />
+                    <div className="">
+                      <Image
+                        width={90}
+                        height={40}
+                        layout="intrinsic"
+                        className="block h-8 w-auto"
+                        src="/roc8.svg"
+                        alt="logo"
+                      />
+                    </div>
                   </Link>
                 </div>
                 <div className="hidden sm:mr-10 sm:block ">

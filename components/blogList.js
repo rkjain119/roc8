@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import classNames from '../utils/classNames'
-
-import { LinkIcon } from '@heroicons/react/24/outline'
 
 import { getBlog } from './userData'
+import { LinkIcon } from '@heroicons/react/24/outline'
 
 export default function BlogList() {
   const [blogs, setBlogs] = useState([])
@@ -14,15 +12,16 @@ export default function BlogList() {
       let blogs = await getBlog()
       setBlogs([blogs])
     }
-
     fetchBlogs()
   }, [])
-  const tabs = [
-    { name: 'Open', href: '#', current: true },
-    { name: 'Closed', href: '#', current: false },
+  const emptyBlogs = [
+    {
+      blog1: '',
+      blog2: '',
+      blog3: '',
+    },
   ]
-
-  return blogs && blogs !== [] ? (
+  return blogs && blogs.length === 0 && blogs === emptyBlogs ? (
     <ul
       role="list"
       className="flex divide-y divide-gray-200"

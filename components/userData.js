@@ -166,7 +166,6 @@ export const getLinkedinUrl = async () => {
     if (error) {
       return console.log(error)
     }
-    console.log(data.linkedin_url, 'LINKEDIN URL')
     return data.linkedin_url
   } catch (error) {
     if (error instanceof Error) {
