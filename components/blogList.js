@@ -21,7 +21,7 @@ export default function BlogList() {
       blog3: '',
     },
   ]
-  return blogs && blogs.length === 0 && blogs === emptyBlogs ? (
+  return blogs && blogs.length !== 0 && blogs !== emptyBlogs ? (
     <ul
       role="list"
       className="flex divide-y divide-gray-200"

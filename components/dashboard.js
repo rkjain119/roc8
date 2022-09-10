@@ -45,8 +45,8 @@ function GetProjectsData({ userName }) {
 }
 
 function useUserData() {
+  const [isLoadingData, setIsLoadingData] = useState()
   const [userLinkedinUrl, setUserLinkedinUrl] = useState('loading')
-  const [isLoadingData, setIsLoadingData] = useState(true)
   const { user } = useUser()
 
   const userName = user.github_username
@@ -61,7 +61,9 @@ function useUserData() {
   userLinkedinUrl === 'loading'
     ? getLinkedinUrl().then((res) => setUserLinkedinUrl(res))
     : null
-  !error && !data && !isValidating && setIsLoadingData(false)
+  // !error && !data && !isValidating
+  //   ? setIsLoadingData(false)
+  //   : setIsLoadingData(true)
   return {
     userName,
     userEmail,
