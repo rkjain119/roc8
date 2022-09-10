@@ -46,25 +46,32 @@ export default function ProjectList({ projectsData, userName }) {
               {path === '/' ? null : (
                 <div className="flex justify-around gap-3 p-2 pt-4">
                   <div className="flex items-center">
-                    <Link
+                    <a
+                      target="_blank"
                       href={`https://github.com/${userName}/${project.repo_name}`}
+                      rel="noreferrer"
                     >
-                      <div className="">
-                        <GoMarkGithub
-                          title="Code"
-                          className="h-5 w-5 cursor-pointer text-gray-600"
-                        />
-                      </div>
-                    </Link>
-                  </div>
-                  <Link className="justify-end" href={project.demo_url}>
-                    <div className="">
-                      <FaGlobe
-                        title="deployed demo"
+                      <GoMarkGithub
+                        title="Code"
                         className="h-5 w-5 cursor-pointer text-gray-600"
                       />
-                    </div>
-                  </Link>
+                    </a>
+                  </div>
+                  <a
+                    target="_blank"
+                    className="justify-end"
+                    rel="noreferrer"
+                    href={
+                      project.demo_url.includes('https://')
+                        ? project.demo_url
+                        : `https://${project.demo_url}`
+                    }
+                  >
+                    <FaGlobe
+                      title="deployed demo"
+                      className="h-5 w-5 cursor-pointer text-gray-600"
+                    />
+                  </a>
                 </div>
               )}
               {/*  */}
@@ -87,8 +94,10 @@ export default function ProjectList({ projectsData, userName }) {
               </div>
               <div className="-ml-px flex w-0 flex-1">
                 <a
-                  href={project.demo_url}
+                  target="_blank"
+                  href={`www.${project.demo_url}`}
                   className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
+                  rel="noreferrer"
                 >
                   <FaGlobe
                     className="h-5 w-5 text-gray-400"
@@ -103,9 +112,10 @@ export default function ProjectList({ projectsData, userName }) {
               <div className="flex w-0 flex-1">
                 <div className="-ml-px flex w-0 flex-1">
                   <button
+                    disabled
                     type="button"
                     onClick={() => router.reload()}
-                    className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
+                    className="relative -mr-px inline-flex w-0 flex-1 cursor-not-allowed items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
                   >
                     <PencilIcon
                       className="h-5 w-5 text-gray-400"

@@ -46,6 +46,7 @@ function GetProjectsData({ userName }) {
 
 function useUserData() {
   const [userLinkedinUrl, setUserLinkedinUrl] = useState('loading')
+  const [isLoadingData, setIsLoadingData] = useState(true)
   const { user } = useUser()
 
   const userName = user.github_username
@@ -57,7 +58,10 @@ function useUserData() {
   const userGraph = `https://github-contributions-api.deno.dev/${userName}.svg?scheme=random`
   const userGithubUrl = `https://github.com/${userName}`
   const userEmail = user.email
-  getLinkedinUrl().then((res) => setUserLinkedinUrl(res))
+  userLinkedinUrl === 'loading'
+    ? getLinkedinUrl().then((res) => setUserLinkedinUrl(res))
+    : null
+  !error && !data && !isValidating && setIsLoadingData(false)
   return {
     userName,
     userEmail,
@@ -66,8 +70,7 @@ function useUserData() {
     userGraph,
     userName,
     userData: data,
-    isLoadingData: !error && !data && !isValidating,
-    isError: error,
+    isLoadingData,
   }
 }
 export default function Dashboard() {
@@ -79,7 +82,6 @@ export default function Dashboard() {
     userGraph,
     userData,
     isLoadingData,
-    isError,
   } = useUserData()
 
   {
@@ -123,14 +125,18 @@ export default function Dashboard() {
                       <h1 className="lg:text-2rem text-xl font-semibold ">
                         {userData?.name || 'User Name'}
                       </h1>
-                      <Link href={userGithubUrl}>
+                      <a
+                        target="_blank"
+                        rel="external noreferrer nofollow"
+                        href={userGithubUrl}
+                      >
                         <div className="mt-1 cursor-pointer text-base leading-6 text-gray-700">
                           <h3 className="text-base font-extralight text-gray-900">
                             @{userData?.login || 'User Name'}
                           </h3>
                           {userData?.bio || 'User Bio'}
                         </div>
-                      </Link>
+                      </a>
                     </div>
                     <div className="mt-2 flex w-full flex-col ">
                       <Link href="/profile" type="button">
@@ -139,52 +145,68 @@ export default function Dashboard() {
                         </a>
                       </Link>
                       <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
-                        <Link href={`https://${userData?.blog}`}>
+                        <a
+                          target="_blank"
+                          rel="external noreferrer nofollow"
+                          href={`https://${userData?.blog}`}
+                        >
                           <div className="flex">
                             <GoGlobe className="mr-2 h-6" />
                             {userData?.blog || 'Portfolio / blog'}
                           </div>
-                        </Link>
+                        </a>
                       </div>
 
                       <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
-                        <Link
+                        <a
+                          target="_blank"
                           href={`https://www.linkedin.com/in/${userLinkedinUrl}`}
+                          rel="external noreferrer nofollow"
                         >
                           <div className="flex">
                             <FaLinkedin className="mr-2 h-6" />
                             {userLinkedinUrl || 'Linkedin userName'}
                           </div>
-                        </Link>
+                        </a>
                       </div>
 
                       <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
-                        <Link href={`https://github.com/${userData?.login}`}>
+                        <a
+                          target="_blank"
+                          rel="external noreferrer nofollow"
+                          href={`https://github.com/${userData?.login}`}
+                        >
                           <div className="flex">
                             <GoMarkGithub className="mr-2 h-6" />
                             {userData?.login || 'Github User Name'}
                           </div>
-                        </Link>
+                        </a>
                       </div>
 
                       <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
-                        <Link
+                        <a
+                          target="_blank"
+                          rel="external noreferrer nofollow"
                           href={`https://twitter.com/${userData?.twitter_username}`}
                         >
                           <div className="flex">
                             <FaTwitter className="mr-2 h-6" />
                             {userData?.twitter_username || 'twitter_username'}
                           </div>
-                        </Link>
+                        </a>
                       </div>
 
                       <div className="mt-1 flex cursor-pointer items-center text-sm leading-5 text-gray-600">
-                        <Link href={`mailto:${userEmail}`}>
+                        <a
+                          target="_blank"
+                          rel="external noreferrer nofollow"
+                          href={`mailto:${userEmail}`}
+                        >
                           <div className="flex">
                             <FaEnvelope className="mr-2 h-6" />
                             <span>{userEmail}</span>
                           </div>
-                        </Link>
+                        </a>
                       </div>
                     </div>
                     {/*  */}
@@ -244,6 +266,8 @@ export default function Dashboard() {
                   </div>
                   {/* */}
                   {/* Blogs */}
+                  {/* TODO: Blogs from dev.to and hashnode */}
+
                   <div className="p-6">
                     <div className="flex items-center justify-between">
                       <h3 className="text-lg font-medium leading-6 text-gray-900 sm:pl-3">

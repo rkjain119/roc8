@@ -39,7 +39,7 @@ export default function ProfileLayout({ children }) {
     return (
       <div className="min-h-96 mt-4  p-6 lg:grid lg:grid-cols-12  lg:gap-x-5">
         <aside className="py-6 px-2 sm:px-6 lg:col-span-2 lg:py-0 lg:px-0">
-          <nav className="space-y-1">
+          <nav className="ml-2 -mt-8 flex flex-col space-y-1 sm:mt-3  sm:ml-0 md:flex-row lg:flex-col">
             {navigation.map((tab) => (
               <Link key={tab.name} href={tab.href}>
                 <a

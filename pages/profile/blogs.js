@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { getBlog, setBlog } from '../../components/userData'
 
 import { LinkIcon } from '@heroicons/react/24/outline'
@@ -15,7 +16,7 @@ export default function Blog() {
   useEffect(() => {
     async function fetchBlogs() {
       let blogs = await getBlog()
-      // console.log(blogs, 'blogs')
+      console.log(blogs, 'blogs')
       reset({
         blog1: blogs.blog1,
         blog2: blogs.blog2,
@@ -40,12 +41,7 @@ export default function Blog() {
   }
 
   return (
-    <form
-      // id="blogs"
-      // action="#"
-      // method="POST"
-      onSubmit={handleSubmit(onSubmit, onError)}
-    >
+    <form onSubmit={handleSubmit(onSubmit, onError)}>
       <div className="shadow sm:overflow-hidden sm:rounded-md">
         <div className="space-y-6 bg-white py-6 px-4 sm:p-6">
           <div>
@@ -53,8 +49,16 @@ export default function Blog() {
               Blog Posts
             </h3>
             <p className="mt-1 text-sm text-gray-500">
-              you can use blogging sites like devto or https://hashnode.com/ or
-              you can use your own website
+              you can use blogging sites like
+              <a target="_blank" href="https://dev.to" rel="noreferrer">
+                {' '}
+                dev.to
+              </a>{' '}
+              or{' '}
+              <a target="_blank" href="https://hashnode.com/" rel="noreferrer">
+                hashnode
+              </a>{' '}
+              or you can use your own website
             </p>
           </div>
           <div className="grid grid-cols-6 gap-6">
@@ -169,6 +173,7 @@ export default function Blog() {
       </div>
       <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
         <button
+          // onClick={notify}
           type="submit"
           className="inline-flex justify-center rounded-md border border-transparent bg-rose-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
         >

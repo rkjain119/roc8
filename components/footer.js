@@ -88,7 +88,7 @@ export default function Footer() {
       </h2>
       <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
         <div className="xl:grid xl:grid-cols-2 xl:gap-8">
-          <div className="space-y-8 xl:col-span-1">
+          <div className="max-w-xs space-y-8 sm:w-full lg:col-span-1">
             <Image
               width={150}
               height={60}
@@ -114,7 +114,7 @@ export default function Footer() {
               ))}
             </div>
           </div>
-          <div className="mt-12 grid grid-cols-3 gap-8 xl:mt-0 ">
+          <div className="grid grid-cols-3 gap-4 sm:mt-12 sm:gap-8 xl:mt-0 ">
             <div className="md:grid md:grid-cols-1 md:gap-8">
               <div className="mt-12 md:mt-0">
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-300">
