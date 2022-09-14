@@ -33,7 +33,7 @@ export default function BlogList() {
           // className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow"
           className="flex divide-y divide-gray-200 rounded-lg bg-white shadow"
         >
-          <div className="flex w-full flex-col justify-start text-ellipsis p-6">
+          <div className="flex w-11/12 flex-col justify-start overflow-hidden text-ellipsis p-6">
             {blog?.blog1 && (
               <Link href={blog?.blog1}>
                 <div className="flex items-center">

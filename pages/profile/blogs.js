@@ -49,7 +49,7 @@ export default function Blog() {
               Blog Posts
             </h3>
             <p className="mt-1 text-sm text-gray-500">
-              you can use blogging sites like
+              You can use blogging sites like
               <a target="_blank" href="https://dev.to" rel="noreferrer">
                 {' '}
                 dev.to
@@ -58,7 +58,8 @@ export default function Blog() {
               <a target="_blank" href="https://hashnode.com/" rel="noreferrer">
                 hashnode
               </a>{' '}
-              or you can use your own website
+              or you can use your own website <br /> Blogs form dev.to are
+              automatically fetched.
             </p>
           </div>
           <div className="grid grid-cols-6 gap-6">
