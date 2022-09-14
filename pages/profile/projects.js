@@ -1,17 +1,17 @@
+import React, { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-// import { Switch } from '@headlessui/react'
-import React, { useId } from 'react'
-import { Fragment, useEffect, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
-import { ErrorMessage } from '@hookform/error-message'
-import { useUser } from '../../context/users'
-import { getProjects, setProjects } from '../../components/userData'
 import useSWR from 'swr'
+import uuid from 'react-uuid'
+import { getProjects, setProjects } from '../../components/userData'
+import { useUser } from '../../context/users'
 import ProjectList from '../../components/projectList'
 
 import { FolderPlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { LinkIcon, PlusIcon } from '@heroicons/react/24/solid'
 // QuestionMarkCircleIcon,
+// import { Switch } from '@headlessui/react'
+import { ErrorMessage } from '@hookform/error-message'
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function Projects() {
@@ -59,14 +59,13 @@ export default function Projects() {
 
   const onError = (errors, e) => console.log(errors, e)
 
-  const uuid = useId()
   const onSubmit = async (data, e) => {
     setLoading(true)
     const fetchProjectsData = await getProjects()
     const projects = fetchProjectsData[0].project_json_array
     projects === null || undefined
-      ? (projects = [{ ...data, id: uuid }])
-      : (projects = [...projects, { ...data, id: uuid }])
+      ? (projects = [{ ...data, id: uuid() }])
+      : (projects = [...projects, { ...data, id: uuid() }])
     const testProjectsData = await setProjects(projects)
     reset()
     setProjectsData(projects)
@@ -101,7 +100,7 @@ export default function Projects() {
             <button
               className="inline-flex items-center rounded border border-transparent bg-rose-200 px-2 py-2.5 text-sm font-medium text-rose-700 hover:bg-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
               type="button"
-              disable={shouldFetch}
+              disabled={shouldFetch}
               onClick={handleClick}
             >
               Fetch
@@ -111,7 +110,6 @@ export default function Projects() {
             <button
               type="button"
               className="inline-flex cursor-not-allowed items-center rounded bg-rose-100 px-2 py-2.5 text-sm font-medium  text-rose-400 transition duration-150 ease-in-out hover:bg-rose-400"
-              disabled=""
             >
               <svg
                 className="-ml-1 mr-3 h-5 w-5 animate-spin text-white"
@@ -198,7 +196,9 @@ export default function Projects() {
       {/* cards ? */}
       {projectsData ? (
         <ProjectList projectsData={projectsData} userName={userName} />
-      ) : null}
+      ) : (
+        <div>loading....</div>
+      )}
       {/* cards end */}
 
       {/* modal */}
@@ -406,7 +406,7 @@ export default function Projects() {
                             </div>
 
                             <input
-                              type="url"
+                              type="text"
                               id="demoUrl"
                               className="block w-full rounded-md border-gray-300 pl-10 focus:border-rose-500 focus:ring-rose-500 sm:pl-10 sm:text-sm"
                               placeholder="www.example.com"
