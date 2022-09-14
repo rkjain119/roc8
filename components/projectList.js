@@ -1,15 +1,15 @@
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { deleteProject } from './userData'
+import toast from 'react-hot-toast'
 import { GoMarkGithub } from 'react-icons/go'
 import { FaGlobe } from 'react-icons/fa'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { deleteProject } from './userData'
 
 export default function ProjectList({ projectsData, userName }) {
   const router = useRouter()
   const [path, setpath] = useState('')
-
+  // const [loading, setLoading] = useState(true)
   useEffect(() => {
     setpath(router.pathname)
   }, [router.pathname])
@@ -82,6 +82,8 @@ export default function ProjectList({ projectsData, userName }) {
             <div className="-mt-px flex divide-x divide-gray-200">
               <div className="flex w-0 flex-1">
                 <a
+                  target="_blank"
+                  rel="external noreferrer nofollow"
                   href={`https://github.com/${userName}/${project.repo_name}`}
                   className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
                 >
@@ -95,9 +97,13 @@ export default function ProjectList({ projectsData, userName }) {
               <div className="-ml-px flex w-0 flex-1">
                 <a
                   target="_blank"
-                  href={`www.${project.demo_url}`}
+                  rel="external noreferrer nofollow"
+                  href={
+                    project.demo_url.includes('://')
+                      ? project.demo_url
+                      : `https://${project.demo_url}`
+                  }
                   className="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
-                  rel="noreferrer"
                 >
                   <FaGlobe
                     className="h-5 w-5 text-gray-400"
@@ -112,9 +118,12 @@ export default function ProjectList({ projectsData, userName }) {
               <div className="flex w-0 flex-1">
                 <div className="-ml-px flex w-0 flex-1">
                   <button
-                    disabled
                     type="button"
-                    onClick={() => router.reload()}
+                    onClick={() =>
+                      toast.error(
+                        'currently editing is not supported delete your project and create a new one😅'
+                      )
+                    }
                     className="relative -mr-px inline-flex w-0 flex-1 cursor-not-allowed items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
                   >
                     <PencilIcon
@@ -125,7 +134,7 @@ export default function ProjectList({ projectsData, userName }) {
                   </button>
                 </div>
                 <button
-                  type="button"
+                  type="submit"
                   onClick={() =>
                     deleteProject(project.id).then(() => router.reload())
                   }
