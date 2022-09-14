@@ -151,7 +151,6 @@ export const deleteProject = async (projectId) => {
   const fetchProjectsData = await getProjects()
   const projects = fetchProjectsData[0].project_json_array
   const newProjects = projects.filter((project) => project.id !== projectId)
-
   await setProjects(newProjects)
 }
 
@@ -167,6 +166,26 @@ export const getLinkedinUrl = async () => {
       return console.log(error)
     }
     return data.linkedin_url
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message)
+      throw error
+    }
+  }
+}
+export const getDevtoUsername = async () => {
+  const userId = supabase.auth.user().id
+  try {
+    let { data, error } = await supabase
+      .from('user_profile')
+      .select('devto_username')
+      .eq('id', userId)
+      .single()
+    if (error) {
+      return console.log(error)
+    }
+    console.log(data.devto_username, 'devto username')
+    return data.devto_username
   } catch (error) {
     if (error instanceof Error) {
       console.log(error.message)

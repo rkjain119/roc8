@@ -4,8 +4,9 @@ import Link from 'next/link'
 import useSWRImmutable from 'swr/immutable'
 import ProjectList from '../components/projectList'
 import BlogList from '../components/blogList'
+import DevtoBlogList from '../components/devto'
 import { useUser } from '../context/users'
-import { getLinkedinUrl } from './userData'
+import { getLinkedinUrl, getDevtoUsername } from './userData'
 import { getProjects } from './userData'
 
 import { GoLogoGithub, GoMarkGithub, GoGlobe } from 'react-icons/go'
@@ -47,6 +48,8 @@ function GetProjectsData({ userName }) {
 function useUserData() {
   const [isLoadingData, setIsLoadingData] = useState()
   const [userLinkedinUrl, setUserLinkedinUrl] = useState('loading')
+  const [devtoUsername, setDevtoUsername] = useState()
+
   const { user } = useUser()
 
   const userName = user.github_username
@@ -55,12 +58,16 @@ function useUserData() {
     () => (userName ? 'https://api.github.com/users/' + userName : null),
     fetcher
   )
+
   const userGraph = `https://github-contributions-api.deno.dev/${userName}.svg?scheme=random`
   const userGithubUrl = `https://github.com/${userName}`
   const userEmail = user.email
   userLinkedinUrl === 'loading'
     ? getLinkedinUrl().then((res) => setUserLinkedinUrl(res))
     : null
+  getDevtoUsername().then((res) => {
+    setDevtoUsername(res)
+  })
   // !error && !data && !isValidating
   //   ? setIsLoadingData(false)
   //   : setIsLoadingData(true)
@@ -69,6 +76,7 @@ function useUserData() {
     userEmail,
     userGithubUrl,
     userLinkedinUrl,
+    devtoUsername,
     userGraph,
     userName,
     userData: data,
@@ -81,6 +89,7 @@ export default function Dashboard() {
     userEmail,
     userGithubUrl,
     userLinkedinUrl,
+    devtoUsername,
     userGraph,
     userData,
     isLoadingData,
@@ -268,11 +277,14 @@ export default function Dashboard() {
                   </div>
                   {/* */}
                   {/* Blogs */}
-                  {/* TODO: Blogs from dev.to and hashnode */}
+                  {/* TODO: Blogs from  hashnode */}
 
                   <div className="p-6">
+                    {devtoUsername ? (
+                      <DevtoBlogList devtoUsername={devtoUsername} />
+                    ) : null}
                     <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-medium leading-6 text-gray-900 sm:pl-3">
+                      <h3 className="text-lg font-medium leading-6 text-gray-900 ">
                         Blogs
                       </h3>
                       <div className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border bg-white transition-all duration-75 ease-in focus-within:border-transparent focus-within:ring-2">

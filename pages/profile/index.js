@@ -10,6 +10,8 @@ import {
   PhoneIcon,
   AcademicCapIcon,
 } from '@heroicons/react/24/solid'
+import { FaDiscord, FaDev } from 'react-icons/fa'
+import { SiHashnode } from 'react-icons/si'
 import classNames from '../../utils/classNames'
 
 export default function YourProfile() {
@@ -28,6 +30,8 @@ export default function YourProfile() {
       reset({
         about: userProfile.about,
         discord_id: userProfile.discord_id,
+        devto_username: userProfile.devto_username,
+        hashnode_username: userProfile.hashnode_username,
         email: userProfile.email,
         github_username: userProfile.github_username,
         linkedin_url: userProfile.linkedin_url,
@@ -51,6 +55,8 @@ export default function YourProfile() {
     reset({
       about: userProfile.about,
       discord_id: userProfile.discord_id,
+      devto_username: userProfile.devto_username,
+      hashnode_username: userProfile.hashnode_username,
       email: userProfile.email,
       github_username: userProfile.github_username,
       linkedin_url: userProfile.linkedin_url,
@@ -125,25 +131,19 @@ export default function YourProfile() {
                   id="phone"
                   placeholder="7057407660"
                   className="block w-full rounded-md border-gray-300 pl-10 focus:border-rose-500 focus:ring-rose-500 sm:text-sm"
-                  {...register(
-                    'phone_no',
-                    // {
-                    //   valueAsNumber: true,
-                    // },
-                    {
-                      // valueAsNumber: true,
-                      required: 'Please enter your phone number',
-                      maxLength: {
-                        value: 10,
-                        message: 'Phone number must be 10 digits',
-                      },
-                      pattern: {
-                        value: /^[6-9]{1}[0-9]{9}$/i,
-                        message:
-                          'Please enter a valid 10-digit indian phone no without any prefix & seperators (+91,-,0)',
-                      },
-                    }
-                  )}
+                  {...register('phone_no', {
+                    required: 'Phone number is required',
+                    required: 'Please enter your phone number',
+                    maxLength: {
+                      value: 10,
+                      message: 'Phone number must be 10 digits',
+                    },
+                    pattern: {
+                      value: /^[6-9]{1}[0-9]{9}$/i,
+                      message:
+                        'Please enter a valid 10-digit indian phone no without any prefix & seperators (+91,-,0)',
+                    },
+                  })}
                 />
                 {(errors.phone_no?.type === 'required' ||
                   errors.phone_no?.type === 'pattern') && (
@@ -161,6 +161,64 @@ export default function YourProfile() {
                 </div>
               )}
             </div>
+            {/*  */}
+            <div className="col-span-3 sm:col-span-1"></div>
+            {/* <div className="col-span-3 sm:col-span-1"></div> */}
+            {/* Devto */}
+            <div className="col-span-3 sm:col-span-1">
+              <label
+                htmlFor="devto_username"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Dev.to Username
+              </label>
+              <div className="relative mt-1 rounded-md shadow-sm">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <FaDev className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                </div>
+                <input
+                  type="text"
+                  id="devto_username"
+                  placeholder="rkjain119"
+                  className="block w-full min-w-0 rounded-md border-gray-300 pl-10 focus:border-rose-500 focus:ring-rose-500  sm:text-sm"
+                  {...register('devto_username', {})}
+                />
+              </div>
+              {errors.devto_username && (
+                <div className="mt-2 text-sm text-red-600">
+                  {errors.devto_username?.message}
+                </div>
+              )}
+            </div>
+            {/* hashnode */}
+            <div className="col-span-3 sm:col-span-1">
+              <label
+                htmlFor="hashnode_username"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Hashnode Username
+              </label>
+              <div className="relative mt-1 rounded-md shadow-sm">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <SiHashnode
+                    className="h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </div>
+                <input
+                  type="text"
+                  id="hashnode_username"
+                  placeholder="rkjain119"
+                  className="block w-full min-w-0 rounded-md border-gray-300 pl-10 focus:border-rose-500 focus:ring-rose-500  sm:text-sm"
+                  {...register('hashnode_username', {})}
+                />
+              </div>
+              {errors.hashnode_username && (
+                <div className="mt-2 text-sm text-red-600">
+                  {errors.hashnode_username?.message}
+                </div>
+              )}
+            </div>
             {/* Discord ID */}
             <div className="col-span-3 sm:col-span-1">
               <label
@@ -169,8 +227,13 @@ export default function YourProfile() {
               >
                 Discord ID
               </label>
-              <div className="relative mt-1 flex rounded-md shadow-sm">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"></div>
+              <div className="relative mt-1 rounded-md shadow-sm">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <FaDiscord
+                    className="h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </div>
                 <input
                   type="text"
                   id="discord_id"
@@ -520,16 +583,17 @@ export default function YourProfile() {
         </div>
 
         <div className="flex justify-end  gap-2 bg-gray-50 px-4 py-3 text-right sm:px-6">
-          <div>
+          {/* <div>
             <button
               onClick={() => {}}
               className=" rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
             >
               Back
             </button>
-          </div>
+          </div> */}
           <button
-            onClick={() => getUserProfile()}
+            onClick={() => reset()}
+            // onClick={() => getUserProfile()}
             className="inline-flex justify-center rounded-md border border-transparent bg-rose-100 py-2 px-4 text-sm font-medium text-rose-700 shadow-sm hover:bg-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
           >
             Reset
